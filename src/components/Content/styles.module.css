@@ -8,9 +8,7 @@
   width: 100%;
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  /* border-top: 1px solid var(--gray-600); */
   display: flex;
-  align-items: center;
 }
 
 .formInput {
@@ -32,12 +30,11 @@ input + button {
   background: var(--blue-300);
   color: var(--gray-100);
   border: 1px solid var(--blue-300);
-  border-radius:  8px;
+  border-radius: 8px;
   height: 3rem;
   padding: 0 1rem;
   font-weight: bold;
   font-size: 87.5;
-  display: block;
 
   display: flex;
   align-items: center;
@@ -51,7 +48,12 @@ button:hover {
   background: var(--blue-100);
 }
 
-.containerTODO {
+button[type=submit]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.containerToDo {
   width: 100%;
   height: 28.1875rem;
   background: transparent;
@@ -61,9 +63,10 @@ button:hover {
 .context {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 24px;
 }
 
-.created > span {
+.todoCreated > span {
   color: var(--blue-100);
   font-weight: bold;
   font-size: 0.875rem;
@@ -71,10 +74,69 @@ button:hover {
   margin-right: 8px;
 }
 
-.done > span {
+.todoCreated > span + span {
+  color: var(--gray-200);
+  font-weight: bold;
+  font-size: 0.875rem;
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0.5rem;
+  background: var(--gray-400);
+	border-radius: 40px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+}
+
+.todoDone > span {
   color: var(--purple-100);
   font-weight: bold;
   font-size: 0.875rem;
   display: inline-block;
   margin-right: 8px;
 }
+
+.todoDone > span + span {
+  color: var(--gray-20);
+  font-weight: bold;
+  font-size: 0.875rem;
+  display: inline-block;
+  background: var(--gray-400);
+  padding: 0.5rem;
+  background: var(--gray-400);
+  border-radius: 40px;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+}
+
+.todo {
+  padding-top: 1.5rem;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+}
+
+.emptyContent .icon {
+  display: block;
+  color: var(--gray-300);
+}
+.firstMessage {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--gray-300);
+}
+
+.secondMessage {
+  font-size: 1rem;
+  color: var(--gray-300);
+}
+
+@media(max-width:768px) {
+  html {
+    font-size: 87.5%;
+  }
+} 

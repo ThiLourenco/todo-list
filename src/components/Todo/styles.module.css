@@ -1,0 +1,110 @@
+.todo {
+  background: var(--gray-400);
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  padding: 1px solid var(--gray-400);
+  height: 4.5rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.textTodo{
+  padding-left: 3rem;
+  max-width: 46rem;
+  width: 100%;
+}
+
+.textTodoFalse{
+  padding-left: 3rem;
+  max-width: 46rem;
+  width: 100%;
+  text-decoration: line-through;
+  color: rgb(128,128,128, 10);
+}
+
+.container {
+display: flex;
+position: relative;
+cursor: pointer;
+}
+
+.container input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+
+/* Create a custom checkbox */
+.checkbox {
+position: absolute;
+top: -10px;
+height: 1rem;
+width: 1rem;
+margin-left: 1.2rem;
+
+outline: 2px solid var(--blue-100);
+
+border-radius: 15px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkbox {
+background-color: transparent;
+}
+
+/* When the checkbox is checked, add a purple background */
+.container input:checked ~ .checkbox {
+background-color: var(--purple-300);
+outline: 1px solid var(--purple-300);
+transition: background 0.1, outline 0.1s;
+}
+
+.container input:checked ~ .checkbox:hover {
+background-color: var(--purple-100);
+outline: 1px solid var(--purple-100);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox:after {
+content: "";
+position: absolute;
+display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkbox:after {
+display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkbox:after {
+left: 5px;
+top: 2px;
+width: 3px;
+height: 8px;
+border: solid  var(--gray-100);
+border-width: 0 2px 2px 0;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+.trash{
+  margin-left: 5px;
+  margin-right: 20px;
+  display: inline-block;
+  border-radius: 4px;
+  background:  transparent;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  
+}
+
+.trash:hover{
+  color: var(--red);
+  background: var(--gray-300);
+}
