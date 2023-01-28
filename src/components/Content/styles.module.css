@@ -44,8 +44,18 @@ input + button {
   transition: color 0.3s, background 0.3s;
 }
 
+input:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--purple-100)
+}
+
 button:hover {
   background: var(--blue-100);
+}
+
+button:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--blue-100);
 }
 
 button[type=submit]:disabled {
