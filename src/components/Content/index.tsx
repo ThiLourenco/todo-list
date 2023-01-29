@@ -77,7 +77,7 @@ export function Content() {
 
       <button 
         type='submit'
-        disabled={isNewTaskEmpty}
+        // disabled={isNewTaskEmpty}
       >
         Criar 
       <PlusCircle size={16} />

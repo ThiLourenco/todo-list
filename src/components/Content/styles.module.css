@@ -87,12 +87,12 @@ button[type=submit]:disabled {
 .todoCreated > span + span {
   color: var(--gray-200);
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   display: inline-block;
   margin-right: 8px;
-  padding: 0.5rem;
+  padding: .125rem .5rem;
   background: var(--gray-400);
-	border-radius: 40px;
+  border-radius: 999px;
 	-moz-border-radius: 40px;
 	-webkit-border-radius: 40px;
 }
@@ -108,12 +108,12 @@ button[type=submit]:disabled {
 .todoDone > span + span {
   color: var(--gray-20);
   font-weight: bold;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   display: inline-block;
   background: var(--gray-400);
-  padding: 0.5rem;
+  padding: .125rem .5rem;
   background: var(--gray-400);
-  border-radius: 40px;
+  border-radius: 999px;
 	-moz-border-radius: 40px;
 	-webkit-border-radius: 40px;
 }
