@@ -7,7 +7,7 @@ export function TodoEmpty() {
         <ClipboardText size={56} weight='thin' className={styles.icon} />
 
         <p className={styles.firstMessage}>
-        Você ainda não tem tarefa cadastradas
+        Você ainda não tem tarefas cadastradas
         </p>
 
         <p className={styles.secondMessage}>
