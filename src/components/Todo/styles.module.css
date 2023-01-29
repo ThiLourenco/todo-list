@@ -101,7 +101,6 @@ transform: rotate(45deg);
   background:  transparent;
   cursor: pointer;
   transition: color 0.2s, background 0.2s;
-  
 }
 
 .trash:hover {

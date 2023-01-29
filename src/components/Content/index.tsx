@@ -1,10 +1,13 @@
-import { ClipboardText, PlusCircle } from 'phosphor-react';
+import { PlusCircle } from 'phosphor-react';
 import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
+import { v4 as uuidV4 } from "uuid";
 import { Todo } from '../Todo';
+import { TodoEmpty } from '../TodoEmpty';
 
 import styles from './styles.module.css';
 
 interface ITodo {
+  id: string;
   content: string;
   completed: boolean;
 }
@@ -12,11 +15,14 @@ interface ITodo {
 export function Content() {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [newTodo, setNewTodo] = useState('');
+  const [tasksCompleted, setTasksCompleted] = useState(0);
+
+  let countTaskDone;
 
   function handleCreateNewTask(event: FormEvent){
     event.preventDefault();
   
-    setTodos([...todos, { content: newTodo, completed: false}]);
+    setTodos([...todos, { id: uuidV4(), content: newTodo, completed: false}]);
 
     setNewTodo('');
   }
@@ -26,34 +32,32 @@ export function Content() {
     setNewTodo(event.target.value);
   }
 
-  function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>){
+  function handleNewTaskInvalid(event: ChangeEvent<HTMLInputElement>){
     event.target.setCustomValidity('Este campo é obrigatório!');
   }
-  
-  function deleteToDo(contentTodo: string){
-    const commentsWithoutDeleteOne = todos.filter(todo => {
-      return todo.content !== contentTodo;
-    });
-    setTodos(commentsWithoutDeleteOne);
-  }
 
-  function completedTodo(contentTodo: string){
-    const commentsWithoutDeleteOne = todos.map(todo=>{
-      if(todo.content === contentTodo){
-          return {...todo, completed: !todo.completed}
-      }else{
-          return todo;
-      }  
-    })
-    setTodos(commentsWithoutDeleteOne)
+  function completedTask(taskToCompleted: string) {
+    const isCompleted = todos.findIndex((todo) => {
+      return todo.id === taskToCompleted;
+    });
+
+    todos[isCompleted].completed = !todos[isCompleted].completed;
+
+    countTaskDone = todos.filter((todo) => todo.completed === true).length;
+    setTasksCompleted(countTaskDone);
+  }
+  
+  function deleteTask(taskToDelete: string) {
+    const taskWithoutDeletedOne = todos.filter((todo) => {
+      return todo.id != taskToDelete;
+    });
+    setTodos(taskWithoutDeletedOne);
+
+    countTaskDone = taskWithoutDeletedOne.filter((todo) => todo.completed === true).length;
+    setTasksCompleted(countTaskDone);
   }
 
   const isNewTaskEmpty = newTodo.length === 0; 
-
-  function toDoCompleted(): number {
-    let toDoCompleted = todos.filter((todo) => todo.completed === true)
-    return toDoCompleted.length;
-  }
 
   return (
   <div className={styles.wrapper}>
@@ -62,8 +66,8 @@ export function Content() {
       onSubmit={handleCreateNewTask}
     >
       <input
+        type='text'
         className={styles.formInput}
-        name='description'
         placeholder='Adicione uma nova tarefa'
         onChange={handleNewTaskChange}
         onInvalid={handleNewTaskInvalid}
@@ -89,39 +93,27 @@ export function Content() {
 
         <div className={styles.todoDone}>
           <span>Concluídas</span>
-          <span>{toDoCompleted()} de {todos.length}</span>
+          <span>{tasksCompleted} de {todos.length}</span>
         </div>
       </div>
       
       <div className={styles.todos}>
-        {
-          todos.length > 0 && 
-            todos.map((todo) => {
+        {todos.length != 0 ? (
+            <>
+            {todos.map((todo) => {
               return (
                 <Todo
-                  key={todo.content} 
-                  content={todo.content} 
-                  completed={todo.completed} 
-                  deleteTodo={deleteToDo}
-                  completedTodo={completedTodo}
+                  key={todo.id} 
+                  todo={todo} 
+                  onDeleteTodo={deleteTask}
+                  onCompletedTodo={completedTask}
                 />
-              )
-            })
-        }
-        {
-          todos.length === 0 && 
-          <div className={styles.emptyContent}>
-            <ClipboardText size={56} weight='thin' className={styles.icon} />
-
-            <p className={styles.firstMessage}>
-            Você ainda não tem tarefa cadastradas
-            </p>
-
-            <p className={styles.secondMessage}>
-              Crie tarefas e organize seus itens a fazer
-            </p>
-          </div>  
-        }
+              );
+            })}
+          </>
+        ) : (
+          <TodoEmpty />
+        )}
       </div>
     </div>
   </div>

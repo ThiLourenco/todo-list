@@ -1,18 +1,26 @@
-import { ChangeEvent } from 'react';
 import { Trash } from 'phosphor-react';
 import styles from './styles.module.css';
 
-interface ITodoProps {
+interface ITodo {
+  id: string;
   content: string;
   completed: boolean;
-  deleteTodo: (contentTodo: string) => void;
-  completedTodo: (contentTodo: string) => void;
 }
 
-export function Todo({ content, completed, deleteTodo, completedTodo }: ITodoProps) {
+interface ITodoProps {
+  todo: ITodo;
+  onDeleteTodo: (todo: string) => void;
+  onCompletedTodo: (todo: string) => void;
+}
+
+export function Todo({ todo, onDeleteTodo, onCompletedTodo }: ITodoProps) {
   
-  function handleCheckTodo(event: ChangeEvent<HTMLInputElement>) {
-    completedTodo(content);
+  function handleCheckTodo() {
+    onCompletedTodo(todo.id);
+  }
+
+  function handleDeleteTodo() {
+    onDeleteTodo(todo.id);
   }
 
   return (
@@ -29,11 +37,12 @@ export function Todo({ content, completed, deleteTodo, completedTodo }: ITodoPro
         <span className={styles.checkbox}></span>
       </label>
 
-      <p className={completed ? styles.textTodoFalse : styles.textTodo}>
-        {content}
+      <p className={todo.completed ? styles.textTodoFalse : styles.textTodo}>
+        {todo.content}
       </p>
+    
+        <Trash size={24} className={styles.trash} onClick={handleDeleteTodo} />
 
-      <Trash size={24} className={styles.trash} onClick={() => deleteTodo(content)} />
     </div>
   )
 }
